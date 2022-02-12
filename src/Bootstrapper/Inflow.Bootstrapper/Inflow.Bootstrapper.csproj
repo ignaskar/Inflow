@@ -10,4 +10,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\Modules\Customers\Inflow.Modules.Customers.Api\Inflow.Modules.Customers.Api.csproj" />
+  </ItemGroup>
+
 </Project>
