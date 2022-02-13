@@ -15,4 +15,8 @@
     <ProjectReference Include="..\..\..\Shared\Inflow.Shared.Infrastructure\Inflow.Shared.Infrastructure.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="DAL\Migrations\" />
+  </ItemGroup>
+
 </Project>

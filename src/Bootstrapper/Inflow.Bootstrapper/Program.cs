@@ -10,8 +10,8 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Services.AddCustomersModule();
-builder.Services.AddModularInfrastructure();
+builder.Services.AddCustomersModule(builder.Configuration);
+builder.Services.AddModularInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
