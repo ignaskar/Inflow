@@ -13,7 +13,7 @@ internal class Customer
     public Address Address { get; private set; }
     public Nationality Nationality { get; private set; }
     public Identity Identity { get; private set; }
-    public string Notes { get; private set; }
+    public string? Notes { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime CreatedAt { get; }
     public DateTime? CompletedAt { get; private set; }
@@ -25,11 +25,11 @@ internal class Customer
 
     }
 
-    public Customer(Email email, DateTime createdAt)
+    public Customer(Email email)
     {
         Id = Guid.NewGuid();
         Email = email;
-        CreatedAt = createdAt;
+        CreatedAt = DateTime.Now;
     }
 
     public void Complete(
@@ -72,13 +72,13 @@ internal class Customer
         VerifiedAt = DateTime.Now;
     }
 
-    public void Lock(string notes = null)
+    public void Lock(string? notes = null)
     {
         IsActive = false;
         Notes = notes?.Trim();
     }
 
-    public void Unlock(string notes = null)
+    public void Unlock(string? notes = null)
     {
         IsActive = true;
         Notes = notes?.Trim();

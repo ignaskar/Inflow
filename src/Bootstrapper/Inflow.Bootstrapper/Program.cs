@@ -1,4 +1,5 @@
 using Inflow.Modules.Customers.Api;
+using Inflow.Shared.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,7 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services.AddCustomersModule();
+builder.Services.AddModularInfrastructure();
 
 var app = builder.Build();
 
