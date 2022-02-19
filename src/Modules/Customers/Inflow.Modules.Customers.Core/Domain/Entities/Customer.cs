@@ -6,13 +6,13 @@ namespace Inflow.Modules.Customers.Core.Domain.Entities;
 
 internal class Customer
 {
-    public Guid Id { get; }
-    public Email Email { get; }
-    public Name Name { get; private set; }
-    public FullName FullName { get; private set; }
-    public Address Address { get; private set; }
-    public Nationality Nationality { get; private set; }
-    public Identity Identity { get; private set; }
+    public Guid Id { get; private set; }
+    public Email Email { get; private set; }
+    public Name? Name { get; private set; }
+    public FullName? FullName { get; private set; }
+    public Address? Address { get; private set; }
+    public Nationality? Nationality { get; private set; }
+    public Identity? Identity { get; private set; }
     public string? Notes { get; private set; }
     public bool IsActive { get; private set; }
     public DateTime CreatedAt { get; }
@@ -29,6 +29,7 @@ internal class Customer
     {
         Id = Guid.NewGuid();
         Email = email;
+        IsActive = true;
         CreatedAt = DateTime.Now;
     }
 

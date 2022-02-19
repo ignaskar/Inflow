@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Inflow.Modules.Customers.Core.DAL.Migrations
 {
     [DbContext(typeof(CustomersDbContext))]
-    [Migration("20220213100226_Customer_Init")]
+    [Migration("20220219190249_Customer_Init")]
     partial class Customer_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,7 +32,6 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
                         .HasColumnType("uuid");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(200)
                         .HasColumnType("character varying(200)");
 
@@ -45,12 +44,10 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("FullName")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("Identity")
-                        .IsRequired()
                         .HasMaxLength(40)
                         .HasColumnType("character varying(40)");
 
@@ -58,38 +55,27 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
                     b.Property<string>("Nationality")
-                        .IsRequired()
-                        .HasMaxLength(500)
-                        .HasColumnType("character varying(500)");
+                        .HasMaxLength(2)
+                        .HasColumnType("character varying(2)");
 
                     b.Property<string>("Notes")
-                        .HasColumnType("text");
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
 
                     b.Property<DateTime?>("VerifiedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("Address");
-
                     b.HasIndex("Email")
                         .IsUnique();
 
-                    b.HasIndex("FullName");
-
-                    b.HasIndex("Identity");
-
                     b.HasIndex("Name")
                         .IsUnique();
-
-                    b.HasIndex("Nationality");
-
-                    b.HasIndex("Notes");
 
                     b.ToTable("Customers", "customers");
                 });

@@ -1,5 +1,6 @@
 ﻿using System.Runtime.CompilerServices;
 using Inflow.Shared.Abstractions.Time;
+using Inflow.Shared.Infrastructure.Api;
 using Inflow.Shared.Infrastructure.Commands;
 using Inflow.Shared.Infrastructure.Postgres;
 using Inflow.Shared.Infrastructure.Time;
@@ -16,7 +17,12 @@ internal static class Extensions
         services
             .AddCommands()
             .AddPostgres(configuration)
-            .AddSingleton<IClock, UtcClock>();
+            .AddSingleton<IClock, UtcClock>()
+            .AddControllers()
+            .ConfigureApplicationPartManager(manager =>
+            {
+                manager.FeatureProviders.Add(new InternalControllerFeatureProvider());
+            });
 
         return services;
     }
