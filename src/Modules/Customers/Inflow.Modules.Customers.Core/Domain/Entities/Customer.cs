@@ -15,7 +15,7 @@ internal class Customer
     public Identity? Identity { get; private set; }
     public string? Notes { get; private set; }
     public bool IsActive { get; private set; }
-    public DateTime CreatedAt { get; }
+    public DateTime CreatedAt { get; private set; }
     public DateTime? CompletedAt { get; private set; }
     public DateTime? VerifiedAt { get; private set; }
 
@@ -30,7 +30,7 @@ internal class Customer
         Id = Guid.NewGuid();
         Email = email;
         IsActive = true;
-        CreatedAt = DateTime.Now;
+        CreatedAt = DateTime.UtcNow;
     }
 
     public void Complete(
@@ -55,7 +55,7 @@ internal class Customer
         Address = address;
         Nationality = nationality;
         Identity = identity;
-        CompletedAt = DateTime.Now;
+        CompletedAt = DateTime.UtcNow;
     }
 
     public void Verify()

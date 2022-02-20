@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Inflow.Modules.Customers.Core.DAL.Migrations
 {
     [DbContext(typeof(CustomersDbContext))]
-    [Migration("20220219190249_Customer_Init")]
+    [Migration("20220220155646_Customer_Init")]
     partial class Customer_Init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -36,6 +36,9 @@ namespace Inflow.Modules.Customers.Core.DAL.Migrations
                         .HasColumnType("character varying(200)");
 
                     b.Property<DateTime?>("CompletedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("CreatedAt")
                         .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
