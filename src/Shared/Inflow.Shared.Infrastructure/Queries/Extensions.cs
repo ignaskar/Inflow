@@ -1,13 +1,13 @@
-﻿using Inflow.Shared.Abstractions.Queries;
+﻿using System.Reflection;
+using Inflow.Shared.Abstractions.Queries;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace Inflow.Shared.Infrastructure.Queries;
 
 internal static class Extensions
 {
-    public static IServiceCollection AddQueries(this IServiceCollection services)
+    public static IServiceCollection AddQueries(this IServiceCollection services, IList<Assembly> assemblies)
     {
-        var assemblies = AppDomain.CurrentDomain.GetAssemblies();
         services.Scan(s => s
             .FromAssemblies(assemblies)
             .AddClasses(c => c.AssignableTo(typeof(IQueryHandler<,>)))

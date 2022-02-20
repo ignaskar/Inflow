@@ -16,4 +16,11 @@
     <ProjectReference Include="..\Inflow.Modules.Customers.Core\Inflow.Modules.Customers.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="modules.customers.json" />
+    <Content Include="module.customers.json">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>
