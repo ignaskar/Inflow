@@ -30,6 +30,7 @@ internal class Customer
         Id = Guid.NewGuid();
         Email = email;
         IsActive = true;
+        CreatedAt = createdAt;
     }
 
     public void Complete(
