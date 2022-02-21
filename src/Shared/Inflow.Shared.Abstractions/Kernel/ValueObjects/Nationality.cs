@@ -10,7 +10,8 @@ public class Nationality : IEquatable<Nationality>
         "DE",
         "FR",
         "ES",
-        "GB"
+        "GB",
+        "LT"
     };
 
     public string Value { get; }

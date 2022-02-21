@@ -33,4 +33,32 @@ internal class CustomersController : ControllerBase
         await _dispatcher.SendAsync(command, ct);
         return NoContent();
     }
+
+    [HttpPost("lock")]
+    public async Task<ActionResult> LockCustomer(LockCustomer command, CancellationToken ct)
+    {
+        await _dispatcher.SendAsync(command, ct);
+        return NoContent();
+    }
+
+    [HttpPost("unlock")]
+    public async Task<ActionResult> UnlockCustomer(UnlockCustomer command, CancellationToken ct)
+    {
+        await _dispatcher.SendAsync(command, ct);
+        return NoContent();
+    }
+
+    [HttpPost("complete")]
+    public async Task<ActionResult> CompleteCustomer(CompleteCustomer command, CancellationToken ct)
+    {
+        await _dispatcher.SendAsync(command, ct);
+        return NoContent();
+    }
+
+    [HttpPost("{customerId:guid}/verify")]
+    public async Task<ActionResult> VerifyCustomer(Guid customerId, CancellationToken ct)
+    {
+        await _dispatcher.SendAsync(new VerifyCustomer(customerId), ct);
+        return NoContent();
+    }
 }

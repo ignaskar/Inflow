@@ -25,12 +25,11 @@ internal class Customer
 
     }
 
-    public Customer(Email email)
+    public Customer(Email email, DateTime createdAt)
     {
         Id = Guid.NewGuid();
         Email = email;
         IsActive = true;
-        CreatedAt = DateTime.UtcNow;
     }
 
     public void Complete(
@@ -38,7 +37,8 @@ internal class Customer
         FullName fullName, 
         Address address, 
         Nationality nationality, 
-        Identity identity)
+        Identity identity,
+        DateTime completedAt)
     {
         if (!IsActive)
         {
@@ -55,10 +55,10 @@ internal class Customer
         Address = address;
         Nationality = nationality;
         Identity = identity;
-        CompletedAt = DateTime.UtcNow;
+        CompletedAt = completedAt;
     }
 
-    public void Verify()
+    public void Verify(DateTime verifiedAt)
     {
         if (!IsActive)
         {
@@ -70,7 +70,7 @@ internal class Customer
             throw new CannotVerifyCustomerException(Id);
         }
 
-        VerifiedAt = DateTime.Now;
+        VerifiedAt = verifiedAt;
     }
 
     public void Lock(string? notes = null)
