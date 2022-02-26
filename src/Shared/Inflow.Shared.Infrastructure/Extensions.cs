@@ -1,22 +1,29 @@
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 using Inflow.Shared.Abstractions.Dispatchers;
+using Inflow.Shared.Abstractions.Storage;
 using Inflow.Shared.Abstractions.Time;
 using Inflow.Shared.Infrastructure.Api;
+using Inflow.Shared.Infrastructure.Auth;
 using Inflow.Shared.Infrastructure.Commands;
 using Inflow.Shared.Infrastructure.Dispatchers;
 using Inflow.Shared.Infrastructure.Postgres;
 using Inflow.Shared.Infrastructure.Queries;
+using Inflow.Shared.Infrastructure.Storage;
 using Inflow.Shared.Infrastructure.Time;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.Mvc.ApplicationParts;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-[assembly: InternalsVisibleTo("Inflow.Bootstrapper")]
 namespace Inflow.Shared.Infrastructure;
 
-internal static class Extensions
+public static class Extensions
 {
+    public static IServiceCollection AddInitializer<T>(this IServiceCollection services) where T : class, IInitializer
+        => services.AddTransient<IInitializer, T>();
+    
     public static IServiceCollection AddModularInfrastructure(
         this IServiceCollection services, 
         IConfiguration configuration,
@@ -25,7 +32,7 @@ internal static class Extensions
         var disabledModules = new List<string>();
         foreach (var (key, value) in configuration.AsEnumerable())
         {
-            if (!key.Contains(":Module:Enabled"))
+            if (!key.Contains(":module:enabled"))
             {
                 continue;
             }
@@ -37,6 +44,9 @@ internal static class Extensions
         }
         
         services
+            .AddMemoryCache()
+            .AddAuth(configuration)
+            .AddSingleton<IRequestStorage, RequestStorage>()
             .AddCommands(assemblies)
             .AddQueries(assemblies)
             .AddSingleton<IDispatcher, InMemoryDispatcher>()
@@ -62,6 +72,18 @@ internal static class Extensions
             });
 
         return services;
+    }
+
+    public static IApplicationBuilder UseModularInfrastructure(this IApplicationBuilder app)
+    {
+        app.UseForwardedHeaders(new ForwardedHeadersOptions
+        {
+            ForwardedHeaders = ForwardedHeaders.All
+        });
+        app.UseAuth();
+        app.UseAuthorization();
+        
+        return app;
     }
 
     public static T GetOptions<T>(this IConfiguration configuration, string sectionName)

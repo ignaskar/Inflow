@@ -29,7 +29,7 @@ public static class ModuleLoader
             }
 
             var moduleName = file.Split(ModulePart)[1].Split('.')[0];
-            var enabled = config.GetValue<bool>($"{moduleName}:Module:Enabled");
+            var enabled = config.GetValue<bool>($"{moduleName}:module:enabled");
             if (!enabled)
             {
                 disabledModules.Add(file);

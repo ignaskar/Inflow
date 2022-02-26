@@ -34,7 +34,7 @@ foreach (var module in modules)
 
 app.UseHttpsRedirection();
 
-app.UseAuthorization();
+app.UseModularInfrastructure();
 
 app.MapControllers();
 

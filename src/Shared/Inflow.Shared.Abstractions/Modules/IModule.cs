@@ -7,6 +7,7 @@ namespace Inflow.Shared.Abstractions.Modules;
 public interface IModule
 {
     string Name { get; }
-    void Register(IServiceCollection services, IConfiguration config);
+    IEnumerable<string> Policies => null;
+    void Register(IServiceCollection services, IConfiguration configuration);
     void Use(IApplicationBuilder app);
 }

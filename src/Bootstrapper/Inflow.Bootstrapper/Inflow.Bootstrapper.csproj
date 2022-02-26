@@ -16,6 +16,8 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Modules\Customers\Inflow.Modules.Customers.Api\Inflow.Modules.Customers.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Inflow.Modules.Users.Api\Inflow.Modules.Users.Api.csproj" />
+    <ProjectReference Include="..\..\Modules\Users\Inflow.Modules.Users.Core\Inflow.Modules.Users.Core.csproj" />
   </ItemGroup>
 
 </Project>

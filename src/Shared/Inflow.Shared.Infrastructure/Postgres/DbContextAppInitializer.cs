@@ -34,6 +34,20 @@ internal sealed class DbContextAppInitializer : IHostedService
             _logger.LogInformation($"Running DbContext for module {dbContextType.Name}");
             await dbContext.Database.MigrateAsync(cancellationToken);
         }
+
+        var initializers = scope.ServiceProvider.GetServices<IInitializer>();
+        foreach (var initializer in initializers)
+        {
+            try
+            {
+                _logger.LogInformation($"Running the initializer: {initializer.GetType().Name}...");
+                await initializer.InitAsync();
+            }
+            catch (Exception e)
+            {
+                _logger.LogError(e, e.Message);
+            }
+        }
     }
 
     public Task StopAsync(CancellationToken cancellationToken) => Task.CompletedTask;
